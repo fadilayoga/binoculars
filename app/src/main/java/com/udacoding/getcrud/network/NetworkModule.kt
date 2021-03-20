@@ -27,7 +27,7 @@ object NetworkModule {
 
     fun getRetrofitPariwisata(): Retrofit{
         return Retrofit.Builder()
-            .baseUrl("http://192.168.1.5/pariwisata/")
+            .baseUrl("https://lifter.000webhostapp.com/pariwisata/")
             .client(interceptor())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
