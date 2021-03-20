@@ -11,25 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GetCRUD">
-        <activity android:name=".ActivityTanaman.DetailTanamanActivity"></activity>
-        <activity android:name=".ActivityPariwisata.DetailPariwisataActivity" />
-        <activity
-            android:name=".ActivityPariwisata.PariwisataActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".ActivityPariwisata.ActivityObjekPariwisata" />
-        <activity android:name=".ActivityPariwisata.ActivityKategoriPariwisata" />
-        <activity android:name=".ActivityTanaman.InputTanamanActivity" />
-        <activity android:name=".ActivityTanaman.ListDataTanaman" />
-        <activity android:name=".ActivityTanaman.KategoriActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ActivityTanaman.DetailTanamanActivity" />
+        <activity android:name=".ActivityPariwisata.DetailPariwisataActivity" />
+        <activity android:name=".ActivityPariwisata.PariwisataActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".ActivityPariwisata.ActivityObjekPariwisata" />
+        <activity android:name=".ActivityPariwisata.ActivityKategoriPariwisata" />
+        <activity android:name=".ActivityTanaman.InputTanamanActivity" />
+        <activity android:name=".ActivityTanaman.ListDataTanaman" />
+        <activity android:name=".ActivityTanaman.KategoriActivity" />
+        <activity android:name=".MainActivity" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
