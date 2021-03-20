@@ -9,8 +9,8 @@
         android:id="@+id/tv_formdialogkategori"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rename"
-        android:layout_marginBottom="3dp"/>
+        android:layout_marginBottom="3dp"
+        android:text="Rename" />
 
     <EditText
         android:id="@+id/et_dialogkategori"
@@ -25,9 +25,9 @@
         android:id="@+id/btnupdatedialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update"
         android:layout_below="@+id/et_dialogkategori"
-        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+        android:text="Update"
+        android:textAlignment="center" />
 </RelativeLayout>

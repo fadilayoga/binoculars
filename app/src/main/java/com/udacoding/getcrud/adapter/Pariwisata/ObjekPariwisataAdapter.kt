@@ -9,9 +9,12 @@ import com.udacoding.getcrud.R
 import com.udacoding.getcrud.model.Pariwisata.objek.DataItemObjekPariwisata
 import kotlinx.android.synthetic.main.item_objek_pariwisata.view.*
 
-class ObjekPariwisataAdapter(var data: MutableList<DataItemObjekPariwisata>?, var itemClick: OnItemClickListener): RecyclerView.Adapter<ObjekPariwisataAdapter.ObjekHolder>(){
+class ObjekPariwisataAdapter(
+    var data: MutableList<DataItemObjekPariwisata>?,
+    var itemClick: OnItemClickListener
+) : RecyclerView.Adapter<ObjekPariwisataAdapter.ObjekHolder>() {
 
-    class ObjekHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class ObjekHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val image = itemView.imageView_destinasi
         val judul = itemView.tv_nama_destinasi
         val lokasi = itemView.tv_lokasi_destinasi
@@ -22,7 +25,8 @@ class ObjekPariwisataAdapter(var data: MutableList<DataItemObjekPariwisata>?, va
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ObjekHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_objek_pariwisata, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_objek_pariwisata, parent, false)
 
         val holder = ObjekHolder(view)
 
@@ -48,7 +52,12 @@ class ObjekPariwisataAdapter(var data: MutableList<DataItemObjekPariwisata>?, va
     }
 
     override fun getItemCount(): Int {
-        return data?.size?: 0
+        return data?.size ?: 0
+    }
+
+    fun updateList(tempList: MutableList<DataItemObjekPariwisata>) {
+        data = tempList
+        notifyDataSetChanged()
     }
 
 }

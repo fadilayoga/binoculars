@@ -3,6 +3,7 @@
     package="com.udacoding.getcrud">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -20,13 +21,17 @@
         </activity>
         <activity android:name=".ActivityTanaman.DetailTanamanActivity" />
         <activity android:name=".ActivityPariwisata.DetailPariwisataActivity" />
-        <activity android:name=".ActivityPariwisata.PariwisataActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".ActivityPariwisata.PariwisataActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".ActivityPariwisata.ActivityObjekPariwisata" />
         <activity android:name=".ActivityPariwisata.ActivityKategoriPariwisata" />
         <activity android:name=".ActivityTanaman.InputTanamanActivity" />
         <activity android:name=".ActivityTanaman.ListDataTanaman" />
         <activity android:name=".ActivityTanaman.KategoriActivity" />
-        <activity android:name=".MainActivity" android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

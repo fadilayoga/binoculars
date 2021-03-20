@@ -1,11 +1,13 @@
 package com.udacoding.getcrud.ActivityTanaman
 
 import android.app.Dialog
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -37,40 +39,63 @@ class KategoriActivity : AppCompatActivity() {
 
         supportActionBar?.title = "Kategori Tanaman"
 
-        search_kategori.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+        if (Connection()) {
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                filterList(s.toString())
-            }
-        })
-
-        fab.setOnClickListener {
-            Dialog(this@KategoriActivity).apply {
-                requestWindowFeature(Window.FEATURE_NO_TITLE)
-                setCancelable(true)
-                setContentView(R.layout.dialog_kategori)
-
-                //setText
-                btnupdatedialog.setText("Insert")
-                tv_formdialogkategori.text = "Nama Kategori"
-
-                btnupdatedialog.setOnClickListener {
-                    visibilitycall("off")
-                    val dataInsert = et_dialogkategori.text.toString()
-                    insertKategori(dataInsert)
-                    dismiss()
+            search_kategori.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
                 }
-            }.show()
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    filterList(s.toString())
+                }
+            })
+
+            fab.setOnClickListener {
+                Dialog(this@KategoriActivity).apply {
+                    requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    setCancelable(true)
+                    setContentView(R.layout.dialog_kategori)
+
+                    //setText
+                    btnupdatedialog.setText("Insert")
+                    tv_formdialogkategori.text = "Nama Kategori"
+
+                    btnupdatedialog.setOnClickListener {
+                        visibilitycall("off")
+                        val dataInsert = et_dialogkategori.text.toString()
+                        insertKategori(dataInsert)
+                        dismiss()
+                    }
+                }.show()
+            }
+
+            //showdatakategori
+            showData()
         }
 
-        //showdatakategori
-        showData()
+    }
 
+    private fun Connection(): Boolean {
+        var status: Boolean
+        val connectionManager =
+            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = connectionManager.activeNetworkInfo
+        val isConnected = activeNetwork?.isConnectedOrConnecting == true
+        if (isConnected) {
+            status = true
+        } else {
+            status = false
+            Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show()
+        }
+        return status
     }
 
     private fun filterList(filterItem: String) {
@@ -156,7 +181,7 @@ class KategoriActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponseKategori>, t: Throwable) {
-                Log.d("error", t.message.toString())
+                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -170,9 +195,10 @@ class KategoriActivity : AppCompatActivity() {
             ) {
                 val status = response.body()?.message
                 val success = response.body()?.isSuccess
-                if (success ==  false) {
+                if (success == false) {
                     Toast.makeText(this@KategoriActivity, "$status", Toast.LENGTH_SHORT).show()
-                }else{
+                    visibilitycall("on")
+                } else {
                     Toast.makeText(this@KategoriActivity, "$status", Toast.LENGTH_SHORT).show()
                     showData()
                 }
@@ -196,7 +222,8 @@ class KategoriActivity : AppCompatActivity() {
                 val success = response.body()?.isSuccess
                 if (success == false) {
                     Toast.makeText(this@KategoriActivity, "$status", Toast.LENGTH_SHORT).show()
-                }else{
+                    visibilitycall("on")
+                } else {
                     Toast.makeText(this@KategoriActivity, "$status", Toast.LENGTH_SHORT).show()
                     showData()
                 }

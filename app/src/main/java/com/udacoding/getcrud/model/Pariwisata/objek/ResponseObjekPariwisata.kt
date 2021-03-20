@@ -2,7 +2,7 @@ package com.udacoding.getcrud.model.Pariwisata.objek
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseObjekPariwisata (
+data class ResponseObjekPariwisata(
 
     @field:SerializedName("data")
     val data: List<DataItemObjekPariwisata?>? = null,

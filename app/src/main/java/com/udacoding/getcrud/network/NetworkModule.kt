@@ -25,7 +25,7 @@ object NetworkModule {
             .build()
     }
 
-    fun getRetrofitPariwisata(): Retrofit{
+    fun getRetrofitPariwisata(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://lifter.000webhostapp.com/pariwisata/")
             .client(interceptor())

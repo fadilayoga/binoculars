@@ -12,4 +12,4 @@ data class DataItemKategoriPariwisata(
 
 	@field:SerializedName("id")
 	val id: String? = null
-): Parcelable
+) : Parcelable

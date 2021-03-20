@@ -25,4 +25,4 @@ data class DataItemObjekPariwisata(
     @field:SerializedName("Image")
     val Image: String? = null,
 
-): Parcelable
+    ) : Parcelable

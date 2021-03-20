@@ -1,6 +1,9 @@
 package com.udacoding.getcrud.ActivityTanaman
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -40,19 +43,36 @@ class ListDataTanaman : AppCompatActivity() {
 
         supportActionBar?.title = "Welcome"
 
-        //dropdown kategori
-        showListKategori()
+        if (isconnection()) {
+            //dropdown kategori
+            showListKategori()
 
-        //spinner
-        spinnerCall()
+            //spinner
+            spinnerCall()
 
-        //fab
-        fab_tanaman.setOnClickListener {
-            flag = false
-            val intent = Intent(this, InputTanamanActivity::class.java)
-            startActivity(intent)
+            //fab
+            fab_tanaman.setOnClickListener {
+                flag = false
+                val intent = Intent(this, InputTanamanActivity::class.java)
+                startActivity(intent)
+            }
         }
 
+    }
+
+    private fun isconnection(): Boolean {
+        var status: Boolean
+        val connectionManager =
+            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = connectionManager.activeNetworkInfo
+        val isConnected = activeNetwork?.isConnectedOrConnecting == true
+        if (isConnected) {
+            status = true
+        } else {
+            status = false
+            Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show()
+        }
+        return status
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -73,18 +93,27 @@ class ListDataTanaman : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (flag == false) {
-            visibilitycall("off")
+            if (isconnection()) {
+                visibilitycall("off")
 
-            //clear list
-            itemList.clear()
+                //clear list
+                itemList.clear()
 
-            //spinner
-            spinnerCall()
+                //spinner
+                spinnerCall()
 
-            //dropdown kategori
-            showListKategori()
+                //dropdown kategori
+                showListKategori()
 
-            flag = true
+                //fab
+                fab_tanaman.setOnClickListener {
+                    flag = false
+                    val intent = Intent(this, InputTanamanActivity::class.java)
+                    startActivity(intent)
+                }
+
+                flag = true
+            }
         }
     }
 
@@ -112,7 +141,8 @@ class ListDataTanaman : AppCompatActivity() {
                     item as MutableList<DataItemTanaman>?,
                     object : AdapterItem.OnClickListener {
                         override fun detail(item: DataItemTanaman?) {
-                            var intent = Intent(this@ListDataTanaman, DetailTanamanActivity::class.java)
+                            var intent =
+                                Intent(this@ListDataTanaman, DetailTanamanActivity::class.java)
                             intent.putExtra("data", item)
                             startActivity(intent)
                         }
@@ -147,7 +177,7 @@ class ListDataTanaman : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponseTanaman>, t: Throwable) {
-                TODO("Not yet implemented")
+                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -172,7 +202,7 @@ class ListDataTanaman : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponseAction>, t: Throwable) {
-                TODO("Not yet implemented")
+                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -197,7 +227,7 @@ class ListDataTanaman : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponseKategori>, t: Throwable) {
-//                TODO("Not yet implemented")
+                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -247,7 +277,6 @@ class ListDataTanaman : AppCompatActivity() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
         }
     }

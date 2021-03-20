@@ -1,5 +1,8 @@
 package com.udacoding.getcrud.ActivityTanaman
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -30,47 +33,64 @@ class InputTanamanActivity : AppCompatActivity() {
 
         supportActionBar?.title = "Insert Data"
 
-        val getData = intent.getParcelableExtra<DataItemTanaman>("data")
-        if (getData != null) {
-            et_nama.setText(getData.nama)
-            et_deskripsi.setText(getData.deskripsi)
-            et_image.setText(getData.image)
-            et_harga.setText(getData.harga)
-            currentKategori = getData.kategori
-            btn_input_data.text = "Update"
-            supportActionBar?.title = "Update Data"
-        }
+        if (isConnention()) {
+            val getData = intent.getParcelableExtra<DataItemTanaman>("data")
+            if (getData != null) {
+                et_nama.setText(getData.nama)
+                et_deskripsi.setText(getData.deskripsi)
+                et_image.setText(getData.image)
+                et_harga.setText(getData.harga)
+                currentKategori = getData.kategori
+                btn_input_data.text = "Update"
+                supportActionBar?.title = "Update Data"
+            }
 
-        when (btn_input_data.text) {
-            "Update" -> {
-                btn_input_data.setOnClickListener {
-                    UpdateDataItem(
-                        getData?.id,
-                        et_nama.text.toString(),
-                        et_deskripsi.text.toString(),
-                        et_image.text.toString(),
-                        et_harga.text.toString(),
-                        currentKategori
-                    )
+            when (btn_input_data.text) {
+                "Update" -> {
+                    btn_input_data.setOnClickListener {
+                        UpdateDataItem(
+                            getData?.id,
+                            et_nama.text.toString(),
+                            et_deskripsi.text.toString(),
+                            et_image.text.toString(),
+                            et_harga.text.toString(),
+                            currentKategori
+                        )
+                    }
+                }
+                else -> {
+                    btn_input_data.setOnClickListener {
+                        InsertData(
+                            getData?.id,
+                            et_nama.text.toString(),
+                            et_deskripsi.text.toString(),
+                            et_image.text.toString(),
+                            et_harga.text.toString(),
+                            currentKategori
+                        )
+                    }
                 }
             }
-            else -> {
-                btn_input_data.setOnClickListener {
-                    InsertData(
-                        getData?.id,
-                        et_nama.text.toString(),
-                        et_deskripsi.text.toString(),
-                        et_image.text.toString(),
-                        et_harga.text.toString(),
-                        currentKategori
-                    )
-                }
-            }
-        }
-        showListKategori()
+            showListKategori()
 
-        //spinner
-        spinnerCall()
+            //spinner
+            spinnerCall()
+        }
+    }
+
+    private fun isConnention(): Boolean {
+        var status: Boolean
+        val connectionManager =
+            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = connectionManager.activeNetworkInfo
+        val isConnected = activeNetwork?.isConnectedOrConnecting == true
+        if (isConnected) {
+            status = true
+        } else {
+            status = false
+            Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show()
+        }
+        return status
     }
 
     private fun InsertData(
@@ -175,7 +195,6 @@ class InputTanamanActivity : AppCompatActivity() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
         }
     }
@@ -199,7 +218,7 @@ class InputTanamanActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResponseKategori>, t: Throwable) {
-//                TODO("Not yet implemented")
+                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
             }
         })
     }

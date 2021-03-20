@@ -19,8 +19,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:src="@drawable/nature"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/nature" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,8 +45,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:src="@drawable/tourism"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/tourism" />
 
         <TextView
             android:layout_width="wrap_content"

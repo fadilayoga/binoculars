@@ -25,4 +25,4 @@ data class DataItemTanaman(
 	@field:SerializedName("harga")
 	val harga: String? = null
 
-): Parcelable
+) : Parcelable
